@@ -34,12 +34,12 @@ def getLaporanById(id_laporan):
     return laporan
 
 
-def tambahLaporan(nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan):
+def tambahLaporan(nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan):
 
     conn = DBConnection.get_db_connection()
 
-    conn.execute("INSERT INTO laporan638 (nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan) VALUES (?, ?, ?, ?)", 
-                 (nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan))
+    conn.execute("INSERT INTO laporan638 (nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan) VALUES (?, ?, ?, ?, ?)", 
+                 (nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan))
 
     conn.commit()
 
@@ -48,12 +48,12 @@ def tambahLaporan(nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penang
     return True
 
 
-def updateLaporan(id_laporan, nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan):
+def updateLaporan(id_laporan, nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan):
 
     conn = DBConnection.get_db_connection()
 
-    conn.execute("UPDATE laporan638 SET nama_pelapor = ?, jenis_sampah = ?, tanggal_kejadian = ?, prioritas_penanganan = ? WHERE id_laporan = ?", 
-                 (nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan, id_laporan))
+    conn.execute("UPDATE laporan638 SET nama_pelapor = ?, jenis_sampah = ?, lokasi_masalah = ?, tanggal_kejadian = ?, prioritas_penanganan = ? WHERE id_laporan = ?", 
+                 (nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan, id_laporan))
 
     conn.commit()
 
@@ -73,6 +73,7 @@ def hapusLaporan(id_laporan):
     conn.close()
 
     return True
+
 
 
 

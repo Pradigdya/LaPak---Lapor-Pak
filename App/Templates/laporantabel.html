@@ -141,6 +141,7 @@
               <th scope="col" style="border: none;">No</th>
               <th scope="col" style="border: none;">Nama Pelapor</th>
               <th scope="col" style="border: none;">Jenis Masalah</th>
+              <th scope="col" style="border: none;">Lokasi Masalah</th>
               <th scope="col" style="border: none;">Tanggal Kejadian</th>
               <th scope="col" style="border: none;">Prioritas</th>
               <th scope="col" style="border: none;">Aksi</th>
@@ -153,6 +154,7 @@
                 <td style="font-size: 0.9rem;">{{ loop.index + ((page2-1)*5) }}</td>
                 <td style="font-size: 0.9rem;">{{ l2[1] or '-' }}</td>
                 <td style="font-size: 0.9rem;">{{ l2[2] or '-' }}</td>
+                <td style="font-size: 0.9rem;">{{ l2[5] or '-' }}</td>
                 <td style="font-size: 0.9rem;">{{ l2[3] or '-' }}</td>
                 <td style="font-size: 0.85rem;">
                   {% if l2[4] %}
@@ -180,7 +182,7 @@
               {% endfor %}
             {% else %}
               <tr>
-                <td colspan="6" class="text-center text-muted py-3">Tidak ada data laporan</td>
+                <td colspan="7" class="text-center text-muted py-3">Tidak ada data laporan</td>
               </tr>
             {% endif %}
           </tbody>

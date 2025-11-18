@@ -83,11 +83,12 @@ def tambah2():
         
         nama_pelapor = data.get('namaPelapor638')
         jenis_sampah = data.get('jenisMasalah638')
+        lokasi_masalah = data.get('lokasiPermasalahan638')
         tanggal_kejadian = data.get('tanggalKejadian638')
         prioritas_penanganan = data.get('prioritas638')
         
         try:
-            Model638.tambahLaporan(nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan)
+            Model638.tambahLaporan(nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan)
             flash('✅ Data berhasil ditambahkan.', 'success')
             return jsonify({'success': True, 'redirect': url_for('laporantabel')}), 200
         except Exception as e:
@@ -104,11 +105,12 @@ def edit2(id):
         
         nama_pelapor = data.get('namaPelapor638')
         jenis_sampah = data.get('jenisMasalah638')
+        lokasi_masalah = data.get('lokasiPermasalahan638')
         tanggal_kejadian = data.get('tanggalKejadian638')
         prioritas_penanganan = data.get('prioritas638')
         
         try:
-            Model638.updateLaporan(id, nama_pelapor, jenis_sampah, tanggal_kejadian, prioritas_penanganan)
+            Model638.updateLaporan(id, nama_pelapor, jenis_sampah, lokasi_masalah, tanggal_kejadian, prioritas_penanganan)
             flash('✅ Data berhasil diperbarui.', 'success')
             return jsonify({'success': True, 'redirect': url_for('laporantabel')}), 200
         except Exception as e:

@@ -34,14 +34,21 @@
           </select>
         </div>
 
-        <!-- Input 3: Tanggal Kejadian -->
+        <!-- Input 3: Lokasi Permasalahan -->
+        <div class="mb-4">
+          <label for="lokasiPermasalahan" class="form-label fw-bold" style="color: #667eea;">Lokasi Permasalahan</label>
+          <input type="text" name="lokasiPermasalahan638" class="form-control form-input" id="lokasiPermasalahan" 
+                 value="{{ laporan[5] if laporan else '' }}" placeholder="Contoh: TPS RT 02/RW 04 atau Jalan Melati" required>
+        </div>
+
+        <!-- Input 4: Tanggal Kejadian -->
         <div class="mb-4">
           <label for="tanggalKejadian" class="form-label fw-bold" style="color: #667eea;">Tanggal Kejadian</label>
           <input type="date" name="tanggalKejadian638" class="form-control form-input" id="tanggalKejadian" 
                  value="{{ laporan[3] if laporan else '' }}" required>
         </div>
 
-        <!-- Input 4: Prioritas -->
+        <!-- Input 5: Prioritas -->
         <div class="mb-4">
           <label class="form-label fw-bold d-block mb-3" style="color: #667eea;">Prioritas Penanganan</label>
           <div class="d-flex gap-4 flex-wrap">
