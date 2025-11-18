@@ -1,0 +1,169 @@
+{% extends "base.html" %} 
+
+{% block tittle %} {{ action }} Laporan - LaPak {% endblock %}
+
+{% block tengah8 %}
+<h1 class="display-4 fw-bold mb-3">{{ action }} Laporan Kerusakan Jalan</h1>
+<p class="lead mb-4">Formulir pelaporan kerusakan infrastruktur jalan</p>
+
+<div class="container mt-4">
+  <div class="card border-0 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+    <div class="card-body p-5">
+      <form id="laporanForm" class="needs-validation" novalidate>
+        {% if action == 'Edit' %}
+        <input type="hidden" name="_method" value="PUT">
+        {% endif %}
+        
+        <!-- Input 1: Nama Pelapor -->
+        <div class="mb-4">
+          <label for="namaPelapor" class="form-label fw-bold" style="color: #667eea;">Nama Pelapor</label>
+          <input type="text" name="namaPelapor631" class="form-control form-input" id="namaPelapor" 
+                 value="{{ laporan[1] if laporan else '' }}" placeholder="Masukkan nama lengkap Anda" required>
+        </div>
+
+        <!-- Input 2: RT/RW -->
+        <div class="mb-4">
+          <label for="rtRw" class="form-label fw-bold" style="color: #667eea;">RT/RW</label>
+          <input type="text" name="rtRw631" class="form-control form-input" id="rtRw" 
+                 value="{{ laporan[2] if laporan else '' }}" placeholder="Contoh: RT 05/RW 03" required>
+        </div>
+
+        <!-- Input 3: Lokasi Jalan -->
+        <div class="mb-4">
+          <label for="lokasiJalan" class="form-label fw-bold" style="color: #667eea;">Lokasi Jalan</label>
+          <input type="text" name="lokasiJalan631" class="form-control form-input" id="lokasiJalan" 
+                 value="{{ laporan[3] if laporan else '' }}" placeholder="Masukkan nama jalan atau lokasi spesifik" required>
+        </div>
+
+        <!-- Input 4: Tingkat Kerusakan -->
+        <div class="mb-4">
+          <label for="tingkatKerusakan" class="form-label fw-bold" style="color: #667eea;">Tingkat Kerusakan</label>
+          <select name="tingkatKerusakan631" class="form-select form-input" id="tingkatKerusakan" required>
+            <option value="">Pilih tingkat kerusakan</option>
+            <option value="Ringan - Retak kecil, lubang kecil" {% if laporan and laporan[4] == 'Ringan - Retak kecil, lubang kecil' %}selected{% endif %}>Ringan - Retak kecil, lubang kecil</option>
+            <option value="Sedang - Retak besar, beberapa lubang" {% if laporan and laporan[4] == 'Sedang - Retak besar, beberapa lubang' %}selected{% endif %}>Sedang - Retak besar, beberapa lubang</option>
+            <option value="Parah - Jalan rusak total, tidak bisa dilalui" {% if laporan and laporan[4] == 'Parah - Jalan rusak total, tidak bisa dilalui' %}selected{% endif %}>Parah - Jalan rusak total, tidak bisa dilalui</option>
+          </select>
+        </div>
+
+        <!-- Input 5: Deskripsi Kerusakan -->
+        <div class="mb-4">
+          <label for="deskripsiKerusakan" class="form-label fw-bold" style="color: #667eea;">Deskripsi Kerusakan</label>
+          <textarea name="deskripsiKerusakan631" class="form-control form-input" id="deskripsiKerusakan" rows="4" 
+                    placeholder="Jelaskan secara detail kondisi kerusakan jalan yang ditemukan" required>{{ laporan[5] if laporan else '' }}</textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end mt-4">
+          {% if action == 'Edit' %}
+          <button type="submit" class="btn btn-warning px-4 btn_edit" data-edit-url="{{ url_for('edit', id=laporan[0]) }}">✏️ Perbarui</button>
+          {% else %}
+          <button type="submit" class="btn-submit btn_simpan">
+            <span>💾 Simpan</span>
+            <i class="ms-2">→</i>
+          </button>
+          {% endif %}
+          <a href="{{ url_for('laporantabel') }}" class="btn btn-secondary px-4 ms-2">↩️ Kembali</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-input {
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .form-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    background: white;
+    outline: none;
+  }
+  .btn-submit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+  .btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+</style>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Tambah (POST)
+  $('.btn_simpan').click(async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData($('#laporanForm')[0]);
+    const data = Object.fromEntries(formData.entries());
+    
+    try {
+      const response = await fetch("{{ url_for('tambah') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        window.location.href = result.redirect;
+      } else {
+        alert("❌ Gagal menambahkan data: " + (result.error || 'Tidak diketahui'));
+      }
+    } catch (err) {
+      alert("⚠️ Terjadi kesalahan koneksi: " + err);
+    }
+  });
+
+  // Edit (PUT)
+  $('.btn_edit').click(async function(e) {
+    e.preventDefault();
+    
+    const form = $('#laporanForm')[0];
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    const editUrl = $(this).data('edit-url');
+    
+    try {
+      const response = await fetch(editUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        window.location.href = "{{ url_for('laporantabel') }}";
+      } else {
+        const errText = await response.text();
+        alert("❌ Gagal memperbarui data: " + errText);
+      }
+    } catch (err) {
+      alert("⚠️ Terjadi kesalahan koneksi: " + err);
+    }
+  });
+});
+</script>
+{% endblock %}

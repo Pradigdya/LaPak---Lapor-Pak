@@ -1,0 +1,134 @@
+{% extends "base.html" %} 
+
+{% block tittle %} Home - LaPak {% endblock %}
+
+{% block tengah8 %}
+    <h1 class="display-4 fw-bold mb-4">LaPak</h1>
+    
+<div class="mb-5" style="max-width: 800px; margin: 0 auto;">
+  <p class="fs-4 mb-3 fw-semibold" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); padding: 15px 30px; border-radius: 50px; display: inline-block;">
+    Platform Digital untuk Melaporkan Keluhan Warga RT/RW
+  </p>
+  <p class="fs-6 mb-3" style="line-height: 1.8;">
+    <strong>LaPak (Lapor Pak)</strong> adalah solusi inovatif yang dirancang khusus untuk memudahkan komunikasi antara warga dengan pengurus RT/RW dalam menangani berbagai masalah di lingkungan. Dengan teknologi modern dan antarmuka yang user-friendly, LaPak membantu menciptakan lingkungan yang lebih baik melalui partisipasi aktif seluruh warga.
+  </p>
+  <p class="fs-6 mb-0" style="line-height: 1.8;">
+    Platform ini memungkinkan Anda untuk melaporkan berbagai jenis masalah seperti <strong>kerusakan infrastruktur jalan</strong>, <strong>masalah sampah</strong>, dan keluhan lainnya dengan mudah, cepat, dan terstruktur. Setiap laporan akan didokumentasikan dengan rapi dan dapat dipantau perkembangannya secara real-time, memastikan transparansi dan akuntabilitas dalam penanganan setiap keluhan.
+  </p>
+</div>
+
+<div class="container mt-5">
+  <!-- Fitur Utama -->
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <h2 class="text-center fw-bold mb-5" style="color: white;">Fitur Utama</h2>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-lg feature-card h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+        <div class="card-body p-4 text-center">
+          <div class="feature-icon mb-3" style="width: 80px; height: 80px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+            🚨
+          </div>
+          <h4 class="fw-bold mb-3" style="color: #667eea;">Laporkan Masalah</h4>
+          <p class="text-muted mb-0">
+            Laporkan berbagai masalah di lingkungan RT/RW Anda dengan mudah dan cepat melalui formulir yang tersedia.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-lg feature-card h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+        <div class="card-body p-4 text-center">
+          <div class="feature-icon mb-3" style="width: 80px; height: 80px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+            📊
+          </div>
+          <h4 class="fw-bold mb-3" style="color: #667eea;">Pantau Status</h4>
+          <p class="text-muted mb-0">
+            Pantau status laporan Anda secara real-time dan dapatkan notifikasi ketika laporan sedang ditangani.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-lg feature-card h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+        <div class="card-body p-4 text-center">
+          <div class="feature-icon mb-3" style="width: 80px; height: 80px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+            🔍
+          </div>
+          <h4 class="fw-bold mb-3" style="color: #667eea;">Lihat Semua Laporan</h4>
+          <p class="text-muted mb-0">
+            Akses semua laporan yang pernah dibuat untuk melihat perkembangan penanganan masalah di lingkungan Anda.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="text-center">
+    <div class="card border-0 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+      <div class="card-body p-5">
+        <h3 class="fw-bold mb-3" style="color: #667eea;">Siap Melaporkan Masalah?</h3>
+        <p class="text-muted mb-4">Mulai laporkan masalah di lingkungan RT/RW Anda sekarang juga!</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+          <a href="/laporan" class="btn-cta">
+            <span>Lihat Laporan</span>
+            <i class="ms-2">→</i>
+          </a>
+          <a href="/tentang" class="btn-cta-secondary">
+            <span>Tentang Kami</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .feature-card:hover {
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+  .btn-cta {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+  .btn-cta-secondary {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    color: #667eea;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-cta-secondary:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+</style>
+{% endblock %}

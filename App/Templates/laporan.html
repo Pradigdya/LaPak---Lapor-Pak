@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block tittle %} Laporan - LaPak {% endblock %} {% block tengah8 %}
+<h1 class="display-4 fw-bold mb-4">Laporan</h1>
+<p class="lead mb-4">Daftar laporan keluhan warga RT/RW</p>
+
+<div class="container mt-5">
+  <div class="row g-4">
+    <!-- Card Laporan 1 -->
+    <div class="col-md-6">
+      <a href="/laporan/1" class="text-decoration-none">
+        <div class="card h-100 shadow-lg border-0 card-hover" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s ease; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2)">
+          <div class="card-img-wrapper" style="height: 250px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+            <img src="{{ url_for('static', filename='images/kerusakanjalan.jpg') }}" class="card-img-top w-100 h-100" style="object-fit: cover; opacity: 0.8" alt="Laporan 1" />
+          </div>
+          <div class="card-body d-flex flex-column" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px)">
+            <h5 class="card-title fw-bold mb-3" style="color: #667eea">Laporan Kerusakan Jalan</h5>
+            <p class="card-text text-muted flex-grow-1">Laporan mengenai keluhan infrastruktur jalan di lingkungan RT 05/RW 03. Jalan mengalami kerusakan yang cukup parah dan memerlukan perbaikan segera untuk kenyamanan warga.</p>
+            <div class="mt-auto">
+              <span class="badge" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white"> Lihat Detail → </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Card Laporan 2 -->
+    <div class="col-md-6">
+      <a href="/laporan/2" class="text-decoration-none">
+        <div class="card h-100 shadow-lg border-0 card-hover" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s ease; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2)">
+          <div class="card-img-wrapper" style="height: 250px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+            <img src="{{ url_for('static', filename='images/laporansampah.jpg') }}" class="card-img-top w-100 h-100" style="object-fit: cover; opacity: 0.8" alt="Laporan 2" />
+          </div>
+          <div class="card-body d-flex flex-column" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px)">
+            <h5 class="card-title fw-bold mb-3" style="color: #667eea">Laporan Sampah</h5>
+            <p class="card-text text-muted flex-grow-1">
+              Laporan tentang masalah sampah yang menumpuk di area pembuangan sampah RT 08/RW 02. Sampah tidak terangkut secara rutin sehingga menimbulkan bau tidak sedap dan mengganggu warga sekitar.
+            </p>
+            <div class="mt-auto">
+              <span class="badge" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white"> Lihat Detail → </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Button Lihat Semua Laporan -->
+  <div class="d-flex justify-content-center mt-5">
+    <a href="/laporantabel" class="btn-view-all">
+      <span>Lihat Semua Laporan</span>
+      <i class="ms-2">→</i>
+    </a>
+  </div>
+</div>
+
+<style>
+  .btn-view-all {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+  .btn-view-all:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+  .card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4), 0 0 30px rgba(118, 75, 162, 0.3) !important;
+  }
+  .card-hover:hover .card-img-top {
+    opacity: 1 !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  .card-img-wrapper {
+    position: relative;
+  }
+</style>
+{% endblock %}

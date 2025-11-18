@@ -1,0 +1,370 @@
+{% extends "base.html" %} 
+
+{% block tittle %} Semua Laporan - LaPak {% endblock %}
+
+{% block tengah8 %}
+<h1 class="display-4 fw-bold mb-4">Semua Laporan</h1>
+<p class="lead mb-4">Daftar lengkap laporan keluhan warga RT/RW</p>
+
+<div class="container mt-5">
+  <div class="card border-0 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+    <div class="card-body p-4">
+      <h3 class="mb-4 fw-bold" style="color: #667eea;">Laporan Kerusakan Jalan</h3>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <tr>
+              <th scope="col" style="border: none;">No</th>
+              <th scope="col" style="border: none;">Nama Pelapor</th>
+              <th scope="col" style="border: none;">RT</th>
+              <th scope="col" style="border: none;">Lokasi Jalan</th>
+              <th scope="col" style="border: none;">Tingkat Kerusakan</th>
+              <th scope="col" style="border: none;">Deskripsi</th>
+              <th scope="col" style="border: none;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if laporan %}
+              {% for l in laporan %}
+              <tr>
+                <td style="font-size: 0.9rem;">{{ loop.index + ((page-1)*5) }}</td>
+                <td style="font-size: 0.9rem;">{{ l[1] or '-' }}</td>
+                <td style="font-size: 0.9rem;">{{ l[2] or '-' }}</td>
+                <td style="font-size: 0.9rem;">{{ l[3] or '-' }}</td>
+                <td style="font-size: 0.85rem;">
+                  {% if l[4] %}
+                    {% set tingkat = l[4]|lower %}
+                    {% if 'parah' in tingkat %}
+                      <span class="badge bg-danger" style="font-size: 0.75rem;">Parah</span>
+                    {% elif 'sedang' in tingkat %}
+                      <span class="badge bg-warning" style="font-size: 0.75rem;">Sedang</span>
+                    {% elif 'ringan' in tingkat %}
+                      <span class="badge bg-info" style="font-size: 0.75rem;">Ringan</span>
+                    {% else %}
+                      <span class="badge bg-secondary" style="font-size: 0.75rem;">{{ l[4][:10] }}{% if l[4]|length > 10 %}...{% endif %}</span>
+                    {% endif %}
+                  {% else %}
+                    <span class="badge bg-secondary" style="font-size: 0.75rem;">-</span>
+                  {% endif %}
+                </td>
+                <td style="font-size: 0.85rem;">
+                  {% if l[5] %}
+                        {{ l[5] }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                  <div class="d-flex justify-content-center gap-1">
+                    <a href="{{ url_for('edit', id=l[0]) }}" class="btn btn-warning btn-sm px-2" style="font-size: 0.75rem;">✏️ Edit</a>
+                    <a href="#" class="btn btn-danger btn-sm px-2 btn-hapus" data-id="{{ l[0] }}" style="font-size: 0.75rem;">🗑️ Hapus</a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="7" class="text-center text-muted py-3">Tidak ada data laporan</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  {% if total_page > 1 %}
+  <div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if page > 1 %}
+        <li class="page-item">
+          <a class="page-link" href="/laporantabel?page={{ page - 1 }}&page2={{ page2 }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </span>
+        </li>
+        {% endif %}
+        
+        {% for p in range(1, total_page + 1) %}
+          {% if p == page %}
+          <li class="page-item active">
+            <span class="page-link">{{ p }}</span>
+          </li>
+          {% elif p <= 3 or p > total_page - 3 or (p >= page - 1 and p <= page + 1) %}
+          <li class="page-item">
+            <a class="page-link" href="/laporantabel?page={{ p }}&page2={{ page2 }}">{{ p }}</a>
+          </li>
+          {% elif p == 4 and page > 5 %}
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+          {% elif p == total_page - 3 and page < total_page - 4 %}
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+          {% endif %}
+        {% endfor %}
+        
+        {% if page < total_page %}
+        <li class="page-item">
+          <a class="page-link" href="/laporantabel?page={{ page + 1 }}&page2={{ page2 }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+
+  <!-- Tabel Laporan 2 (Masalah Sampah) -->
+  <div class="card border-0 shadow-lg mt-5" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+    <div class="card-body p-4">
+      <h3 class="mb-4 fw-bold" style="color: #667eea;">Laporan Masalah Sampah</h3>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <tr>
+              <th scope="col" style="border: none;">No</th>
+              <th scope="col" style="border: none;">Nama Pelapor</th>
+              <th scope="col" style="border: none;">Jenis Masalah</th>
+              <th scope="col" style="border: none;">Tanggal Kejadian</th>
+              <th scope="col" style="border: none;">Prioritas</th>
+              <th scope="col" style="border: none;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if laporan2 %}
+              {% for l2 in laporan2 %}
+              <tr>
+                <td style="font-size: 0.9rem;">{{ loop.index + ((page2-1)*5) }}</td>
+                <td style="font-size: 0.9rem;">{{ l2[1] or '-' }}</td>
+                <td style="font-size: 0.9rem;">{{ l2[2] or '-' }}</td>
+                <td style="font-size: 0.9rem;">{{ l2[3] or '-' }}</td>
+                <td style="font-size: 0.85rem;">
+                  {% if l2[4] %}
+                    {% set prioritas = l2[4]|lower %}
+                    {% if 'tinggi' in prioritas %}
+                      <span class="badge bg-danger" style="font-size: 0.75rem;">Tinggi</span>
+                    {% elif 'sedang' in prioritas %}
+                      <span class="badge bg-warning" style="font-size: 0.75rem;">Sedang</span>
+                    {% elif 'rendah' in prioritas %}
+                      <span class="badge bg-success" style="font-size: 0.75rem;">Rendah</span>
+                    {% else %}
+                      <span class="badge bg-secondary" style="font-size: 0.75rem;">{{ l2[4] }}</span>
+                    {% endif %}
+                  {% else %}
+                    <span class="badge bg-secondary" style="font-size: 0.75rem;">-</span>
+                  {% endif %}
+                </td>
+                <td class="text-center" style="white-space: nowrap;">
+                  <div class="d-flex justify-content-center gap-1">
+                    <a href="{{ url_for('edit2', id=l2[0]) }}" class="btn btn-warning btn-sm px-2" style="font-size: 0.75rem;">✏️ Edit</a>
+                    <a href="#" class="btn btn-danger btn-sm px-2 btn-hapus2" data-id="{{ l2[0] }}" style="font-size: 0.75rem;">🗑️ Hapus</a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="6" class="text-center text-muted py-3">Tidak ada data laporan</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Laporan 2 -->
+  {% if total_page2 > 1 %}
+  <div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if page2 > 1 %}
+        <li class="page-item">
+          <a class="page-link" href="/laporantabel?page={{ page }}&page2={{ page2 - 1 }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </span>
+        </li>
+        {% endif %}
+        
+        {% for p in range(1, total_page2 + 1) %}
+          {% if p == page2 %}
+          <li class="page-item active">
+            <span class="page-link">{{ p }}</span>
+          </li>
+          {% elif p <= 3 or p > total_page2 - 3 or (p >= page2 - 1 and p <= page2 + 1) %}
+          <li class="page-item">
+            <a class="page-link" href="/laporantabel?page={{ page }}&page2={{ p }}">{{ p }}</a>
+          </li>
+          {% elif p == 4 and page2 > 5 %}
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+          {% elif p == total_page2 - 3 and page2 < total_page2 - 4 %}
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+          {% endif %}
+        {% endfor %}
+        
+        {% if page2 < total_page2 %}
+        <li class="page-item">
+          <a class="page-link" href="/laporantabel?page={{ page }}&page2={{ page2 + 1 }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+
+  <!-- Button Kembali -->
+  <div class="d-flex justify-content-center mt-4">
+    <a href="/laporan" class="btn-back">
+      <i class="me-2">←</i>
+      <span>Kembali ke Laporan Terbaru</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .table tbody tr {
+    transition: all 0.2s ease;
+  }
+  .table tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+    transform: scale(1.01);
+  }
+  .btn-detail {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 20px;
+    transition: all 0.3s ease;
+  }
+  .btn-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+  .btn-back {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+  .btn-back:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+  .pagination .page-link {
+    color: #667eea;
+    border-color: rgba(102, 126, 234, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+  .pagination .page-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+  }
+  .pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    color: white;
+  }
+  .pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.5);
+    color: #999;
+    border-color: rgba(102, 126, 234, 0.2);
+  }
+</style>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.btn-hapus').click(function(e) {
+    e.preventDefault(); // cegah <a> melakukan GET
+    const id = $(this).data('id');
+    const url = `/laporan/hapus/${id}`;
+    
+    if (!confirm('Yakin ingin menghapus laporan ini?')) return;
+    
+    fetch(url, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          // alert('✅ ' + result.message);
+          location.reload(); // refresh halaman agar tabel terupdate
+        } else {
+          alert('❌ Gagal menghapus data: ' + (result.error || 'Tidak diketahui'));
+        }
+      })
+      .catch(err => alert('⚠️ Terjadi kesalahan koneksi: ' + err));
+  });
+
+  $('.btn-hapus2').click(function(e) {
+    e.preventDefault(); // cegah <a> melakukan GET
+    const id = $(this).data('id');
+    const url = `/laporan/hapus2/${id}`;
+    
+    if (!confirm('Yakin ingin menghapus laporan ini?')) return;
+    
+    fetch(url, { method: 'DELETE' })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          // alert('✅ ' + result.message);
+          location.reload(); // refresh halaman agar tabel terupdate
+        } else {
+          alert('❌ Gagal menghapus data: ' + (result.error || 'Tidak diketahui'));
+        }
+      })
+      .catch(err => alert('⚠️ Terjadi kesalahan koneksi: ' + err));
+  });
+});
+</script>
+{% endblock %}
+

@@ -1,0 +1,86 @@
+{% extends "base.html" %} 
+
+{% block tittle %} Tentang - LaPak {% endblock %}
+
+{% block tengah8 %}
+<h1 class="display-4 fw-bold mb-3">Tentang LaPak</h1>
+<p class="lead mb-4">Platform digital untuk melaporkan keluhan warga RT/RW</p>
+
+<div class="container mt-4">
+  <div class="row g-4">
+    <!-- Tujuan Website -->
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-lg h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+        <div class="card-body p-4">
+          <h2 class="fw-bold mb-3" style="color: #667eea; font-size: 1.5rem;">Tujuan Website</h2>
+          <p class="text-muted mb-3" style="font-size: 0.95rem;">
+            LaPak (Lapor Pak) adalah platform digital untuk memudahkan warga melaporkan keluhan dan masalah di lingkungan RT/RW. Website ini bertujuan untuk:
+          </p>
+          <ul class="text-muted mb-0" style="font-size: 0.9rem; line-height: 1.8; padding-left: 20px;">
+            <li>Memfasilitasi komunikasi efektif antara warga dan pengurus RT/RW</li>
+            <li>Meningkatkan transparansi dalam penanganan keluhan</li>
+            <li>Mempercepat proses penanganan dengan sistem terstruktur</li>
+            <li>Menciptakan lingkungan lebih baik melalui partisipasi aktif</li>
+            <li>Menyediakan dokumentasi rapi untuk setiap laporan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tim Pembuat -->
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-lg h-100" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+        <div class="card-body p-4">
+          <h2 class="fw-bold mb-3 text-center" style="color: #667eea; font-size: 1.5rem;">Tim Pembuat</h2>
+          <div class="row g-3">
+            <!-- Pembuat 1 -->
+            <div class="col-12">
+              <div class="card border-0 creator-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 12px; transition: transform 0.3s ease;">
+                <div class="card-body p-3">
+                  <div class="d-flex align-items-center">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">
+                      AP
+                    </div>
+                    <div class="ms-3 flex-grow-1">
+                      <h5 class="fw-bold mb-1" style="color: #667eea; font-size: 1rem; margin: 0;">Affan Pradipa Wijaya</h5>
+                      <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                        <strong>NIM:</strong> 2313010638
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pembuat 2 -->
+            <div class="col-12">
+              <div class="card border-0 creator-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 12px; transition: transform 0.3s ease;">
+                <div class="card-body p-3">
+                  <div class="d-flex align-items-center">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">
+                      PR
+                    </div>
+                    <div class="ms-3 flex-grow-1">
+                      <h5 class="fw-bold mb-1" style="color: #667eea; font-size: 1rem; margin: 0;">Pradigdya Rafly Widya Zea</h5>
+                      <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                        <strong>NIM:</strong> 2313010631
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .creator-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+  }
+</style>
+{% endblock %}

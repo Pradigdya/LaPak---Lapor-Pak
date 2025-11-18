@@ -1,0 +1,193 @@
+{% extends "base.html" %} 
+
+{% block tittle %} {{ action }} Laporan - LaPak {% endblock %}
+
+{% block tengah8 %}
+<h1 class="display-4 fw-bold mb-3">{{ action }} Laporan Masalah Sampah</h1>
+<p class="lead mb-4">Formulir pelaporan masalah sampah di lingkungan</p>
+
+<div class="container mt-4">
+  <div class="card border-0 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3), 0 0 20px rgba(118, 75, 162, 0.2);">
+    <div class="card-body p-5">
+      <form id="laporanForm2" class="needs-validation" novalidate>
+        {% if action == 'Edit' %}
+        <input type="hidden" name="_method" value="PUT">
+        {% endif %}
+        
+        <!-- Input 1: Nama Pelapor -->
+        <div class="mb-4">
+          <label for="namaPelapor2" class="form-label fw-bold" style="color: #667eea;">Nama Pelapor</label>
+          <input type="text" name="namaPelapor638" class="form-control form-input" id="namaPelapor2" 
+                 value="{{ laporan[1] if laporan else '' }}" placeholder="Masukkan nama lengkap Anda" required>
+        </div>
+
+        <!-- Input 2: Jenis Masalah -->
+        <div class="mb-4">
+          <label for="jenisMasalah" class="form-label fw-bold" style="color: #667eea;">Jenis Masalah Sampah</label>
+          <select name="jenisMasalah638" class="form-select form-input" id="jenisMasalah" required>
+            <option value="">Pilih jenis masalah</option>
+            <option value="menumpuk" {% if laporan and laporan[2] == 'menumpuk' %}selected{% endif %}>Sampah Menumpuk</option>
+            <option value="tidak-terangkut" {% if laporan and laporan[2] == 'tidak-terangkut' %}selected{% endif %}>Sampah Tidak Terangkut</option>
+            <option value="tempat-penuh" {% if laporan and laporan[2] == 'tempat-penuh' %}selected{% endif %}>Tempat Sampah Penuh</option>
+            <option value="bau-tidak-sedap" {% if laporan and laporan[2] == 'bau-tidak-sedap' %}selected{% endif %}>Bau Tidak Sedap</option>
+            <option value="sampah-berserakan" {% if laporan and laporan[2] == 'sampah-berserakan' %}selected{% endif %}>Sampah Berserakan</option>
+          </select>
+        </div>
+
+        <!-- Input 3: Tanggal Kejadian -->
+        <div class="mb-4">
+          <label for="tanggalKejadian" class="form-label fw-bold" style="color: #667eea;">Tanggal Kejadian</label>
+          <input type="date" name="tanggalKejadian638" class="form-control form-input" id="tanggalKejadian" 
+                 value="{{ laporan[3] if laporan else '' }}" required>
+        </div>
+
+        <!-- Input 4: Prioritas -->
+        <div class="mb-4">
+          <label class="form-label fw-bold d-block mb-3" style="color: #667eea;">Prioritas Penanganan</label>
+          <div class="d-flex gap-4 flex-wrap">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="prioritas638" id="rendah" value="rendah" 
+                     {% if laporan and laporan[4] == 'rendah' %}checked{% endif %} required>
+              <label class="form-check-label" for="rendah" style="color: #28a745;">
+                Rendah
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="prioritas638" id="sedang" value="sedang" 
+                     {% if laporan and laporan[4] == 'sedang' %}checked{% endif %} required>
+              <label class="form-check-label" for="sedang" style="color: #ffc107;">
+                Sedang
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="prioritas638" id="tinggi" value="tinggi" 
+                     {% if laporan and laporan[4] == 'tinggi' %}checked{% endif %} required>
+              <label class="form-check-label" for="tinggi" style="color: #dc3545;">
+                Tinggi
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-end mt-4">
+          {% if action == 'Edit' %}
+          <button type="submit" class="btn btn-warning px-4 btn_edit2" data-edit-url="{{ url_for('edit2', id=laporan[0]) if laporan else '' }}">✏️ Perbarui</button>
+          {% else %}
+          <button type="submit" class="btn-submit btn_simpan2">
+            <span>💾 Simpan</span>
+            <i class="ms-2">→</i>
+          </button>
+          {% endif %}
+          <a href="{{ url_for('laporantabel') }}" class="btn btn-secondary px-4 ms-2">↩️ Kembali</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-input {
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .form-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    background: white;
+    outline: none;
+  }
+  .form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+  }
+  .form-check-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  }
+  .btn-submit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+  .btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+  }
+</style>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Tambah (POST)
+  $('.btn_simpan2').click(async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData($('#laporanForm2')[0]);
+    const data = Object.fromEntries(formData.entries());
+    
+    try {
+      const response = await fetch("{{ url_for('tambah2') }}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        window.location.href = result.redirect;
+      } else {
+        alert("❌ Gagal menambahkan data: " + (result.error || 'Tidak diketahui'));
+      }
+    } catch (err) {
+      alert("⚠️ Terjadi kesalahan koneksi: " + err);
+    }
+  });
+
+  // Edit (PUT)
+  $('.btn_edit2').click(async function(e) {
+    e.preventDefault();
+    
+    const form = $('#laporanForm2')[0];
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    const editUrl = $(this).data('edit-url');
+    
+    try {
+      const response = await fetch(editUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        window.location.href = "{{ url_for('laporantabel') }}";
+      } else {
+        const errText = await response.text();
+        alert("❌ Gagal memperbarui data: " + errText);
+      }
+    } catch (err) {
+      alert("⚠️ Terjadi kesalahan koneksi: " + err);
+    }
+  });
+});
+</script>
+{% endblock %}
