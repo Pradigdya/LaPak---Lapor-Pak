@@ -28,7 +28,7 @@ def laporan():
 @app.route('/laporan/tambah', methods=['GET', 'POST'])
 def tambah():
     if request.method == 'POST':
-        # Pastikan ambil JSON, bukan form
+        
         data = request.get_json(force=True)
         
         nama_pelapor = data.get('namaPelapor631')
